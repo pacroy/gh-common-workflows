@@ -1,0 +1,41 @@
+name: Sync Files
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  SOURCE_REPO: pacroy/gh-common-workflows
+
+jobs:
+  sync:
+    name: Sync Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          path: 'target'
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.SOURCE_REPO }}
+          token: ${{ secrets.GH_PAT }}
+          path: 'source'
+      - name: Print files and directories
+        shell: bash
+        run: tree -aI "\.git" "$(pwd)"
+      - name: Copy files
+        shell: bash
+        run: |
+          path=".github"
+          rsync --recursive "source/${path}/" "target/${path}"
+      - name: Commit changes
+        shell: bash
+        run: |
+          cd target
+          git add .
+          if git commit --short --message="Sync files"; then
+            git push
+          fi
