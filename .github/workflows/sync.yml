@@ -13,11 +13,12 @@ jobs:
     name: Sync Files
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout Target
         uses: actions/checkout@v3
         with:
+          token: ${{ secrets.GH_PAT }}
           path: 'target'
-      - name: Checkout Code
+      - name: Checkout Source
         uses: actions/checkout@v3
         with:
           repository: ${{ env.SOURCE_REPO }}
@@ -31,11 +32,8 @@ jobs:
         run: |
           path=".github"
           rsync --recursive "source/${path}/" "target/${path}"
-      - name: Commit changes
-        shell: bash
-        run: |
-          cd target
-          git add .
-          if git commit --short --message="Sync files"; then
-            git push
-          fi
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "[AUTO] Sync files"
+          repository: target
