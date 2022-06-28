@@ -39,6 +39,6 @@ jobs:
         run: |
           cd target
           git add .
-          if git commit -m "Sync files"; then
+          if git commit --short --message="Sync files"; then
             git push
           fi
