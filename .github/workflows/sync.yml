@@ -29,10 +29,7 @@ jobs:
       - name: Copy files
         shell: bash
         run: |
-          path=".github/workflows"
-          rsync --recursive "source/${path}/*" "target/${path}"
-          
-          path=".github/mdlink"
+          path=".github"
           rsync --recursive "source/${path}/*" "target/${path}"
       - name: Commit changes
         shell: bash
