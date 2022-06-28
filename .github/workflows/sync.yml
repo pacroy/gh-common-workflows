@@ -30,7 +30,7 @@ jobs:
         shell: bash
         run: |
           path=".github"
-          rsync --recursive "source/${path}/*" "target/${path}"
+          rsync --recursive "source/${path}/" "target/${path}"
       - name: Commit changes
         shell: bash
         run: |
