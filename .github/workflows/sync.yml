@@ -26,3 +26,21 @@ jobs:
       - name: Print files and directories
         shell: bash
         run: tree -aI "\.git" .
+      - name: Copy files
+        shell: bash
+        run: |
+          path=".github/workflows"
+          mkdir -p "target/${path}"
+
+          file="sync.yml"
+          rsync "source/${path}/${file}" "target/${path}/${file}"
+          file="linter.yml"
+          rsync "source/${path}/${file}" "target/${path}/${file}"
+          file="mdlink.yml"
+          rsync "source/${path}/${file}" "target/${path}/${file}"
+
+          path=".github/mdlink"
+          mkdir -p "target/${path}"
+
+          file="mlc_config.json"
+          rsync "source/${path}/${file}" "target/${path}/${file}"
