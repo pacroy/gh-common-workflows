@@ -13,11 +13,12 @@ jobs:
     name: Sync Files
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout Target
         uses: actions/checkout@v3
         with:
+          token: ${{ secrets.GH_PAT }}
           path: 'target'
-      - name: Checkout Code
+      - name: Checkout Source
         uses: actions/checkout@v3
         with:
           repository: ${{ env.SOURCE_REPO }}
