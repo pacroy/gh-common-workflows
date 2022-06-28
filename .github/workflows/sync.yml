@@ -25,7 +25,7 @@ jobs:
           path: 'source'
       - name: Print files and directories
         shell: bash
-        run: tree -aI "\.git" .
+        run: tree -aI "\.git" "$(pwd)"
       - name: Copy files
         shell: bash
         run: |
