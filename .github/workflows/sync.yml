@@ -30,17 +30,7 @@ jobs:
         shell: bash
         run: |
           path=".github/workflows"
-          mkdir -p "target/${path}"
-
-          file="sync.yml"
-          rsync "source/${path}/${file}" "target/${path}/${file}"
-          file="linter.yml"
-          rsync "source/${path}/${file}" "target/${path}/${file}"
-          file="mdlink.yml"
-          rsync "source/${path}/${file}" "target/${path}/${file}"
-
+          rsync --recursive "source/${path}/*" "target/${path}"
+          
           path=".github/mdlink"
-          mkdir -p "target/${path}"
-
-          file="mlc_config.json"
-          rsync "source/${path}/${file}" "target/${path}/${file}"
+          rsync --recursive "source/${path}/*" "target/${path}"
