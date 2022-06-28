@@ -1,0 +1,24 @@
+name: Sync Files
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          path: 'target'
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          repository: pacroy/gh-common-workflows
+          token: ${{ secrets.GH_PAT }}
+          path: 'source'
+      - name: Print files and directories
+        shell: bash
+        run: tree -a "$(pwd)"
