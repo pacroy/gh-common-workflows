@@ -31,11 +31,8 @@ jobs:
         run: |
           path=".github"
           rsync --recursive "source/${path}/" "target/${path}"
-      - name: Commit changes
-        shell: bash
-        run: |
-          cd target
-          git add .
-          if git commit --short --message="Sync files"; then
-            git push
-          fi
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "[AUTO] Sync files"
+          repository: target
