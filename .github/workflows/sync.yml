@@ -25,4 +25,4 @@ jobs:
           path: 'source'
       - name: Print files and directories
         shell: bash
-        run: tree -a "$(pwd)"
+        run: tree -aI "\.git" "$(pwd)"
