@@ -5,8 +5,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  SOURCE_REPO: pacroy/gh-common-workflows
+
 jobs:
   sync:
+    name: Sync Files
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -16,7 +20,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          repository: pacroy/gh-common-workflows
+          repository: ${{ env.SOURCE_REPO }}
           token: ${{ secrets.GH_PAT }}
           path: 'source'
       - name: Print files and directories
