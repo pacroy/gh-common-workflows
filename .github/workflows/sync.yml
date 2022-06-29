@@ -32,6 +32,13 @@ jobs:
         run: |
           path=".github"
           rsync --recursive "source/${path}/" "target/${path}"
+      - name: Create Job Summary
+        shell: bash
+        run: |
+          {
+            echo "File(s) changed:"
+            git status --short 
+          } >> $GITHUB_STEP_SUMMARY
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
