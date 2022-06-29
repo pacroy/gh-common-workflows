@@ -36,6 +36,7 @@ jobs:
         shell: bash
         run: |
           {
+            cd target
             echo "File(s) changed:"
             git status --short 
           } >> $GITHUB_STEP_SUMMARY
