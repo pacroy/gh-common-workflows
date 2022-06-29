@@ -37,8 +37,10 @@ jobs:
         run: |
           {
             cd target
-            echo "File(s) changed:"
-            git status --short 
+            echo "# Synced File(s)"
+            echo "\`\`\`console"
+            git status --short
+            echo "\`\`\`"
           } >> $GITHUB_STEP_SUMMARY
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v4
