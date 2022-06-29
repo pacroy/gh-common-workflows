@@ -16,13 +16,13 @@ jobs:
       - name: Checkout Target
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.SYNC_PAT }}
           path: 'target'
       - name: Checkout Source
         uses: actions/checkout@v3
         with:
           repository: ${{ env.SOURCE_REPO }}
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.SYNC_PAT }}
           path: 'source'
       - name: Print files and directories
         shell: bash
