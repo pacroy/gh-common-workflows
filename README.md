@@ -18,6 +18,8 @@ This works by setting up the [Sync Files workflow](.github/workflows/sync.yml) i
     source --pull--> targetn
 ```
 
+This sync process is designed to work well with [GitHub Flow](https://docs.github.com/en/get-started/quickstart/github-flow).
+
 ## Usage
 
 1. Create a new secret `SYNC_PAT` with the token that have permission to read/write repository and workflow.
@@ -26,4 +28,4 @@ This works by setting up the [Sync Files workflow](.github/workflows/sync.yml) i
 
 2. Create file `.github/workflows/sync.yml` with [this content](.github/workflows/sync.yml) in your target repository.
 
-3. Let the workflow runs and it will automatically sync files and folders including the Sync Files workflow itself.
+3. Let the workflow runs and it will automatically sync files and folders as you can customize in the [Sync Files workflow YAML](.github/workflows/sync.yml)
