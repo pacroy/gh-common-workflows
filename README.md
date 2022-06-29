@@ -17,3 +17,13 @@ This works by setting up the [Sync Files workflow](.github/workflows/sync.yml) i
     source --pull--> target3
     source --pull--> targetn
 ```
+
+## Usage
+
+1. Create a new secret `SYNC_PAT` with the token that have permission to read/write repository and workflow.
+
+    ![CleanShot 2022-06-29 at 10 15 28](https://user-images.githubusercontent.com/24604485/176343541-0bc82c53-8aca-427a-b5b7-fab7d68feafc.png)
+
+2. Create file `.github/workflows/sync.yml` with [this content](.github/workflows/sync.yml) in your target repository.
+
+3. Let the workflow runs and it will automatically sync files and folders including the Sync Files workflow itself.
