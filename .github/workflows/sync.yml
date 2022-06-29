@@ -37,10 +37,15 @@ jobs:
         run: |
           {
             cd target
-            echo "# Synced File(s)"
-            echo "\`\`\`console"
-            git status --short
-            echo "\`\`\`"
+            synced_files="$(git status --short)"
+
+            if [ -z "${synced_files}" ]; then
+              echo ":smile: No change detected. Everything is already in sync. "
+            else
+              echo "\`\`\`console"
+              echo "${synced_files}"
+              echo "\`\`\`"
+            fi
           } >> "$GITHUB_STEP_SUMMARY"
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v4
