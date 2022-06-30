@@ -37,7 +37,7 @@ jobs:
         run: |
           {
             cd target
-            synced_files="$(git status --short)"
+            synced_files="$(git status --porcelain)"
 
             if [ -z "${synced_files}" ]; then
               echo ":smile: No change detected. Everything is already in sync."
