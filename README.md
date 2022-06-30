@@ -1,6 +1,6 @@
 # Common GitHub Actions Workflows
 
-This repository contains GitHub Actions workflows boilerplate that you want to keep in sync in other repositories. This saves your time by making changes to the workflow YAMLs in one place without doing it in each repository one by one.
+This repository contains GitHub Actions workflows boilerplate that you want to sync to other repositories. This saves your time so you only make changes to common workflow YAMLs in one place without doing it in each repository one by one.
 
 This works by creating a new GitHub Actions workflow in your target repositories and it will automatically sync files or folders from this repository. The workflow can be customized so it only overwrites or deletes specific files and folders.
 
