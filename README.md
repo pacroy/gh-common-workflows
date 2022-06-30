@@ -22,10 +22,14 @@ This sync process is designed to work well with [GitHub Flow](https://docs.githu
 
 ## Usage
 
-1. Create a new secret `SYNC_PAT` with the token that have permission to read/write repository and workflow.
+1. Generate a new Personal Access Token with the permissions `repo` and `workflow`.
 
     ![CleanShot 2022-06-29 at 10 15 28](https://user-images.githubusercontent.com/24604485/176343541-0bc82c53-8aca-427a-b5b7-fab7d68feafc.png)
 
-2. Create file `.github/workflows/sync.yml` with [this content](.github/workflows/sync.yml) in your target repository.
+2. Manually run the workflow [Sync Secrets](https://github.com/pacroy/gh-common-workflows/actions/workflows/_sync_secrets.yml) and input your target repository.
 
-3. Let the workflow runs and it will automatically sync files and folders as you can customize in the [Sync Files workflow YAML](.github/workflows/sync.yml)
+    ![CleanShot 2022-06-30 at 20 09 59](https://user-images.githubusercontent.com/24604485/176685449-dc9e6ff1-df29-4db6-92a8-fa820ff7edc9.png)
+
+3. In your target reposotory, create a new workflow `.github/workflows/sync.yml` copy the content from [sync.yml](.github/workflows/sync.yml).
+
+4. Get the workflow runs and it will automatically sync files and folders which you can customize in [sync.yml](.github/workflows/sync.yml)
