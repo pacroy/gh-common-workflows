@@ -42,7 +42,7 @@ jobs:
             if [ -z "${synced_files}" ]; then
               echo ":smile: No change detected. Everything is already in sync."
             else
-              echo "::sunglasses:: The following changes have been made:"
+              echo ":sunglasses: The following changes have been made:"
               echo "\`\`\`console"
               echo "${synced_files}"
               echo "\`\`\`"
