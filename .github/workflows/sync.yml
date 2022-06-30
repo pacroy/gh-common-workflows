@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           path=".github"
-          rsync --recursive "source/${path}/" "target/${path}"
+          rsync --recursive --exclude="source/${path}/workflows/_*.yml" "source/${path}/" "target/${path}"
       - name: Create Job Summary
         shell: bash
         run: |
