@@ -32,6 +32,10 @@ jobs:
         run: |
           path=".github"
           rsync --recursive --exclude="source/${path}/workflows/_*.yml" "source/${path}/" "target/${path}"
+
+          rm -f "source/${path}/workflows/markdown-link-check.yml"
+          rm -rf "source/${path}/markdown-link-check"
+          rm -rf "source/${path}/linters"
       - name: Create Job Summary
         shell: bash
         run: |
