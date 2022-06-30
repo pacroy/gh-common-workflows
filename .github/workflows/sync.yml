@@ -27,7 +27,7 @@ jobs:
       - name: Print files and directories
         shell: bash
         run: tree -aI "\.git" "$(pwd)"
-      - name: Copy files
+      - name: Sync files
         shell: bash
         run: |
           path=".github"
