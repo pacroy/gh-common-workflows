@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           path=".github"
-          rsync --recursive --exclude="source/${path}/workflows/_*.yml" "source/${path}/" "target/${path}"
+          rsync --recursive --exclude="workflows/_*.yml" "source/${path}/" "target/${path}"
 
           rm -f "target/${path}/workflows/markdown-link-check.yml"
           rm -rf "target/${path}/markdown-link-check"
