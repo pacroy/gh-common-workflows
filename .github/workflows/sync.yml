@@ -30,12 +30,13 @@ jobs:
       - name: Sync files
         shell: bash
         run: |
-          path=".github"
-          rsync --recursive --exclude="source/${path}/workflows/_*.yml" "source/${path}/" "target/${path}"
+          folder=".github"
+          rsync --recursive --exclude="workflows/_*.yml" "source/${folder}/" "target/${folder}"
 
-          rm -f "target/${path}/workflows/markdown-link-check.yml"
-          rm -rf "target/${path}/markdown-link-check"
-          rm -rf "target/${path}/linters"
+          rm -f "target/${folder}/workflows/_*.yml"
+          rm -f "target/${folder}/workflows/markdown-link-check.yml"
+          rm -rf "target/${folder}/markdown-link-check"
+          rm -rf "target/${folder}/linters"
       - name: Create Job Summary
         shell: bash
         run: |
