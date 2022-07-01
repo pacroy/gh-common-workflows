@@ -62,5 +62,5 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           if git commit -m "[AUTO] Sync files"; then
-            git push origin "$(git branch --show-current)"
+            git push
           fi
