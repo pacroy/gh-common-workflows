@@ -55,3 +55,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_NATURAL_LANGUAGE: false
           FILTER_REGEX_EXCLUDE: 'dist/.*'
+          VALIDATE_TERRAFORM_TERRASCAN: false
