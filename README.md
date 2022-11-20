@@ -27,12 +27,12 @@ This sync process is designed to work well with [GitHub Flow](https://docs.githu
    - For classic token, choose `repo` and `workflow`.
    - For fine-grained token, choose the following:
    
-   ```
-   Repository:Contents=Read and write
-   Repository:Metadata=Read-only
-   Repository:Secrets=Read and write
-   Repository:Workflows=Read and write
-   ```
+    ```properties
+    Repository:Contents=Read and write
+    Repository:Metadata=Read-only
+    Repository:Secrets=Read and write
+    Repository:Workflows=Read and write
+    ```
 
 2. Manually run the workflow [Sync Secrets](https://github.com/pacroy/gh-common-workflows/actions/workflows/_sync_secrets.yml) and input your target repository.
 
