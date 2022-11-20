@@ -26,7 +26,7 @@ This sync process is designed to work well with [GitHub Flow](https://docs.githu
   
    - For classic token, choose `repo` and `workflow`.
    - For fine-grained token, choose the following:
-   
+
     ```properties
     Repository:Contents=Read and write
     Repository:Metadata=Read-only
