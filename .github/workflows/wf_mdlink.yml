@@ -1,5 +1,5 @@
 ---
-name: Check Markdown links
+name: Check Markdown Links
 
 on:
     workflow_call:

@@ -1,4 +1,4 @@
-name: Check Markdown links
+name: Check Markdown Links
 
 on:
   push:
@@ -9,5 +9,5 @@ on:
 jobs:
   markdown-link-check:
     name: Check Markdown links
-    uses: ./.github/workflows/wf_mdlink.yml
+    uses: pacroy/gh-common-workflows/.github/workflows/wf_mdlink.yml@v1
     secrets: inherit
