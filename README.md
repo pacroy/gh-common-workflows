@@ -1,5 +1,7 @@
 # Common GitHub Actions Workflows
 
+[![Lint Code Base](https://github.com/pacroy/gh-common-workflows/actions/workflows/linter.yml/badge.svg)](https://github.com/pacroy/gh-common-workflows/actions/workflows/linter.yml) [![Check Markdown Links](https://github.com/pacroy/gh-common-workflows/actions/workflows/mdlink.yml/badge.svg)](https://github.com/pacroy/gh-common-workflows/actions/workflows/mdlink.yml)
+
 This repository contains GitHub Actions workflows boilerplate that you want to sync to other repositories. This saves your time so you only make changes to common workflow YAMLs in one place without doing it in each repository one by one.
 
 This works by creating a new GitHub Actions workflow in your target repositories and it will automatically sync files or folders from this repository. The workflow can be customized so it only overwrites or deletes specific files and folders.
