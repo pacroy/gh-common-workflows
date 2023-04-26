@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: |
           folder=".github"
-          rsync --recursive --exclude="workflows/_*.yml" "source/${folder}/" "target/${folder}"
+          rsync --recursive --exclude="workflows/_*.yml" --exclude="workflows/wf_*.yml" "source/${folder}/" "target/${folder}"
 
           rm -f "target/${folder}/workflows/_*.yml"
           rm -f "target/${folder}/workflows/markdown-link-check.yml"
