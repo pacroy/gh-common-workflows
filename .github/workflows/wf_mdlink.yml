@@ -6,7 +6,7 @@ on:
 
 jobs:
   markdown-link-check:
-    name: Check Markdown links
+    name: Check Markdown Links
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
