@@ -1,0 +1,19 @@
+---
+name: Check Markdown Links
+
+on:
+    workflow_call:
+
+jobs:
+  markdown-link-check:
+    name: Check Markdown links
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+    - name: Check Markdown Links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
+        config-file: '.github/mdlink/mlc_config.json'
