@@ -19,11 +19,17 @@ jobs:
           token: ${{ secrets.SYNC_PAT }}
           path: 'target'
           ref: ${{ github.head_ref }}
+      - name: Determine Ref
+        id: get_ref
+        shell: bash
+        if: ${{ github.repository != 'pacroy/gh-common-workflows' }}
+        run: |
+          echo "ref=v1" >> "$GITHUB_OUTPUT"
       - name: Checkout Source
         uses: actions/checkout@v3
         with:
           repository: ${{ env.SOURCE_REPO }}
-          ref: v1
+          ref: ${{ steps.get_ref.outputs.ref }}
           token: ${{ secrets.SYNC_PAT }}
           path: 'source'
       - name: Print files and directories
