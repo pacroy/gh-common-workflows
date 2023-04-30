@@ -52,3 +52,4 @@ jobs:
           FILTER_REGEX_EXCLUDE: 'dist/.*'
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_TERRAFORM_TERRASCAN: false
+          VALIDATE_KUBERNETES_KUBECONFORM: false
