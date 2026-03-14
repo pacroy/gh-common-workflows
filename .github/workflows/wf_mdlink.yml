@@ -12,7 +12,7 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
     - name: Check Markdown Links
-      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      uses: gaurav-nelson/github-action-markdown-link-check@1.0.17
       with:
         use-quiet-mode: 'yes'
         use-verbose-mode: 'yes'
