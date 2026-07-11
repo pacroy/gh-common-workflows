@@ -57,6 +57,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JSCPD_CONFIG_FILE: .github/jscpd/.jscpd.json
           FILTER_REGEX_EXCLUDE: "dist/.*"
           VALIDATE_BIOME_FORMAT: false
           VALIDATE_GITHUB_ACTIONS: false
