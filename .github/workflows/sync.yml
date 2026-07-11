@@ -12,20 +12,20 @@ env:
 jobs:
   sync:
     name: Sync Files
-    if: ${{ github.repository != env.SOURCE_REPO && env.SYNC_PAT != '' }}
+    if: ${{ github.repository == env.SOURCE_REPO || env.SYNC_PAT != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Target
         uses: actions/checkout@v7
         with:
-          token: ${{ env.SYNC_PAT }}
+          token: ${{ github.repository == env.SOURCE_REPO && github.token || env.SYNC_PAT }}
           path: "target"
           ref: ${{ github.head_ref }}
       - name: Checkout Source
         uses: actions/checkout@v7
         with:
           repository: ${{ env.SOURCE_REPO }}
-          token: ${{ env.SYNC_PAT }}
+          token: ${{ github.repository == env.SOURCE_REPO && github.token || env.SYNC_PAT }}
           path: "source"
       - name: Print files and directories
         shell: bash
@@ -58,6 +58,7 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
       - name: Commit and push
+        if: ${{ github.repository != env.SOURCE_REPO && env.SYNC_PAT != '' }}
         shell: bash
         run: |
           cd target
