@@ -8,20 +8,21 @@ This is a centralized GitHub Actions workflows repository that serves as a **sou
 
 ### Workflow Structure
 
+See [README.md](../../README.md) for the current workflow list. As of now:
+
 **Public Workflows** (distributed to target repos):
 
-- `linter.yml` - Calls reusable `wf_linter.yml`
-- `mdlink.yml` - Calls reusable `wf_mdlink.yml`
-
-**Reusable Workflows** (internal reference, excluded from sync):
-
-- `wf_linter.yml` - Implements Super-linter for code linting
-- `wf_mdlink.yml` - Implements Markdown link checking
+- `linter.yml` - Runs Super-linter (`super-linter/super-linter`) directly
+- `mdlink.yml` - Runs Markdown link checker (`gaurav-nelson/github-action-markdown-link-check`) directly
 
 **Utility Workflows** (internal sync helpers, excluded from sync):
 
 - `sync.yml` - Syncs `.github/` folder to target repositories via rsync
 - `_sync_secrets.yml` - Syncs GitHub repository secrets across multiple repositories
+
+**Reserved pattern** (excluded from sync when present):
+
+- `wf_*.yml` - Internal reusable workflows (none currently; reserved for future use)
 
 ### Sync Process
 
@@ -40,9 +41,9 @@ The sync system works by:
 
 ### Workflow Naming
 
-- **Public workflows**: No prefix (e.g., `linter.yml`)
-- **Reusable (internal)**: `wf_` prefix (e.g., `wf_linter.yml`)
-- **Utility/Admin**: `_` prefix (e.g., `_sync_secrets.yml`)
+- **Public workflows**: No prefix (e.g., `linter.yml`) — synced to target repos
+- **Reserved reusable (internal)**: `wf_` prefix (e.g., `wf_linter.yml`) — excluded from sync
+- **Utility/Admin**: `_` prefix (e.g., `_sync_secrets.yml`) — excluded from sync
 
 This naming scheme ensures only public workflows are synced to target repositories.
 
@@ -57,14 +58,14 @@ This naming scheme ensures only public workflows are synced to target repositori
 Patterns are defined in `sync.yml` under the "Sync files" step:
 
 ```bash
---exclude="workflows/_*.yml" --exclude="workflows/wf_*.yml"
-rm -f "target/${folder}/workflows/_*.yml"
-rm -f "target/${folder}/workflows/wf_*.yml"
+--exclude="workflows/_*.yml"
+--exclude="workflows/wf_*.yml"
+--exclude="copilot-instructions.md"
 ```
 
-`copilot-instructions.md` is also excluded from sync because it contains repository-specific AI guidance that should remain local to each target repository.
+`copilot-instructions.md` is excluded because it contains repository-specific AI guidance that should remain local to each repository.
 
-Always update both the rsync `--exclude` flags AND the explicit `rm` commands when adding new internal workflows.
+Always update the rsync `--exclude` flags in `sync.yml` when adding new internal workflows or files.
 
 ## Testing Workflows
 
@@ -85,8 +86,9 @@ These are automatically triggered on:
 
 To test locally:
 
-- **Linting**: Super-linter is configured in `wf_linter.yml` with `VALIDATE_ALL_CODEBASE: true`
+- **Linting**: Super-linter is configured in `linter.yml` with `VALIDATE_ALL_CODEBASE: true`
 - **Markdown links**: Configured via `.github/mdlink/mlc_config.json`
+- **JSCPD**: Uses `.jscpd.json` at repo root; do NOT set `JSCPD_CONFIG_FILE` in the linter workflow
 
 ## GitHub Token & Permissions
 
@@ -125,8 +127,9 @@ When setting up sync in target repositories, use a Personal Access Token (`SYNC_
 
 ## Key Dependencies
 
-- **actions/checkout**: v7.0.0
-- **actions/github-script**: v9.0.0
+Always pin action versions. Current versions in use:
+
+- **actions/checkout**: v7
+- **actions/github-script**: v9
 - **super-linter/super-linter**: v8.7.0
-- **jpoehnelt/secrets-sync-action**: v1.10.0
 - **gaurav-nelson/github-action-markdown-link-check**: 1.0.17
