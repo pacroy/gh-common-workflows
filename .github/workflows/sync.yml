@@ -12,6 +12,7 @@ env:
 jobs:
   sync:
     name: Sync Files
+    if: ${{ github.repository != env.SOURCE_REPO }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Target
