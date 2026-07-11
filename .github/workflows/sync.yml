@@ -7,24 +7,25 @@ on:
 
 env:
   SOURCE_REPO: pacroy/gh-common-workflows
+  SYNC_PAT: ${{ secrets.SYNC_PAT }}
 
 jobs:
   sync:
     name: Sync Files
-    if: ${{ github.repository != env.SOURCE_REPO && secrets.SYNC_PAT }}
+    if: ${{ github.repository != env.SOURCE_REPO && env.SYNC_PAT != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Target
         uses: actions/checkout@v7
         with:
-          token: ${{ secrets.SYNC_PAT }}
+          token: ${{ env.SYNC_PAT }}
           path: "target"
           ref: ${{ github.head_ref }}
       - name: Checkout Source
         uses: actions/checkout@v7
         with:
           repository: ${{ env.SOURCE_REPO }}
-          token: ${{ secrets.SYNC_PAT }}
+          token: ${{ env.SYNC_PAT }}
           path: "source"
       - name: Print files and directories
         shell: bash
@@ -35,6 +36,7 @@ jobs:
           folder=".github"
           # Exclude copilot-instructions.md to keep repository-specific AI guidance local to each target repository.
           rsync --recursive --exclude="workflows/_*.yml" --exclude="workflows/wf_*.yml" --exclude="copilot-instructions.md" "source/${folder}/" "target/${folder}"
+          # Remove internal workflow files if they were previously synced to the target repository.
           rm -f "target/${folder}/workflows/_*.yml"
           rm -f "target/${folder}/workflows/wf_*.yml"
 
