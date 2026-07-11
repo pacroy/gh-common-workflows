@@ -1,9 +1,0 @@
-{
-  "ignore": [
-    ".github/workflows/_sync_secrets.yml",
-    ".github/workflows/linter.yml",
-    ".github/workflows/mdlink.yml",
-    ".github/workflows/wf_linter.yml",
-    ".github/workflows/wf_mdlink.yml"
-  ]
-}
