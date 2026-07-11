@@ -30,12 +30,15 @@ The sync system works by:
 
 1. **Source repo** (this repository) contains all workflow configurations
 2. **Target repos** include a copy of `sync.yml` to pull changes
-3. `sync.yml` uses rsync to copy `.github/` contents while **excluding**:
-   - Workflows starting with `_` (underscore)
-   - Workflows starting with `wf_` (internal reusable)
-   - Old `markdown-link-check.yml` and related directories
+3. `sync.yml` uses rsync with an **explicit whitelist** to copy only the designated public files:
+   - `.github/workflows/sync.yml`
+   - `.github/workflows/linter.yml`
+   - `.github/workflows/mdlink.yml`
+   - `.github/mdlink/`
 4. Syncs are triggered on PR to `main` or manual `workflow_dispatch`
 5. Changes are auto-committed to target repos using git bot account
+
+**When adding new public files/workflows to distribute, update the whitelist in `sync.yml` under the "Sync files" step.**
 
 ## Key Conventions
 
@@ -53,19 +56,9 @@ This naming scheme ensures only public workflows are synced to target repositori
 - `REPO_LIST_REGEX`: When `true`, treat repository patterns as regex expressions
 - Secret patterns use regex for flexible matching (e.g., `^SYNC_PAT$`)
 
-### File Exclusion in rsync
+### File Syncing in rsync
 
-Patterns are defined in `sync.yml` under the "Sync files" step:
-
-```bash
---exclude="workflows/_*.yml"
---exclude="workflows/wf_*.yml"
---exclude="copilot-instructions.md"
-```
-
-`copilot-instructions.md` is excluded because it contains repository-specific AI guidance that should remain local to each repository.
-
-Always update the rsync `--exclude` flags in `sync.yml` when adding new internal workflows or files.
+The sync uses an explicit whitelist (not exclusions). Only files explicitly listed in the rsync command in `sync.yml` are distributed to target repositories. Internal/admin workflows and repository-specific files are simply not listed and therefore never distributed.
 
 ## Testing Workflows
 
@@ -88,7 +81,7 @@ To test locally:
 
 - **Linting**: Super-linter is configured in `linter.yml` with `VALIDATE_ALL_CODEBASE: true`
 - **Markdown links**: Configured via `.github/mdlink/mlc_config.json`
-- **JSCPD**: Uses `.jscpd.json` at repo root; do NOT set `JSCPD_CONFIG_FILE` in the linter workflow
+- **JSCPD**: Uses `.github/linters/.jscpd.json` (super-linter's default linters directory); do NOT set `JSCPD_CONFIG_FILE` in the linter workflow
 
 ## GitHub Token & Permissions
 
@@ -109,6 +102,7 @@ When setting up sync in target repositories, use a Personal Access Token (`SYNC_
 ## Configuration Files
 
 - `.github/mdlink/mlc_config.json` - Markdown link checker configuration (retries, timeouts, headers)
+- `.github/linters/.jscpd.json` - JSCPD config (files to ignore for duplication checks)
 - `.claude/settings.local.json` - Permissions for Claude sessions in this repo
 
 ## Making Changes
@@ -119,11 +113,9 @@ When setting up sync in target repositories, use a Personal Access Token (`SYNC_
 4. Workflows auto-run on PR:
    - Linter checks code
    - Markdown link checker validates documentation
-   - Sync workflow shows a preview of what will sync to target repos
+   - Sync workflow runs against the current branch and commits+pushes any differences to target repos
 5. Merge PR when ready
-6. To release updates to target repos:
-   - Merge the workflow updates into the source repository
-   - Target repos will pull the latest changes from the source repository on their next sync trigger
+6. Target repos will have already received changes from the sync during the PR run
 
 ## Key Dependencies
 
