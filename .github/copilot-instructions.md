@@ -63,6 +63,8 @@ rm -f "target/${folder}/workflows/_*.yml"
 rm -f "target/${folder}/workflows/wf_*.yml"
 ```
 
+`copilot-instructions.md` is also excluded from sync because it contains repository-specific AI guidance that should remain local to each target repository.
+
 Always update both the rsync `--exclude` flags AND the explicit `rm` commands when adding new internal workflows.
 
 ## Testing Workflows

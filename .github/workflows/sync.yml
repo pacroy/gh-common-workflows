@@ -33,7 +33,10 @@ jobs:
         shell: bash
         run: |
           folder=".github"
+          # Keep repository-specific Copilot guidance local to each target repository.
           rsync --recursive --exclude="workflows/_*.yml" --exclude="workflows/wf_*.yml" --exclude="copilot-instructions.md" "source/${folder}/" "target/${folder}"
+          rm -f "target/${folder}/workflows/_*.yml"
+          rm -f "target/${folder}/workflows/wf_*.yml"
 
       - name: Create Job Summary
         shell: bash
