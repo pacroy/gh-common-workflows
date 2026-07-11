@@ -57,7 +57,7 @@ When run, the workflow:
 
 ## Setup and Usage
 
-1. Generate a new Personal Access Token with proper permissions as follow:
+1. Generate a new Personal Access Token with proper permissions as follows:
 
    - For classic token, choose `repo` and `workflow`.
    - For fine-grained token, choose the following:
