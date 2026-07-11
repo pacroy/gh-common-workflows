@@ -11,7 +11,7 @@ env:
 jobs:
   sync:
     name: Sync Files
-    if: ${{ github.repository != env.SOURCE_REPO }}
+    if: ${{ github.repository != env.SOURCE_REPO && secrets.SYNC_PAT != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Target
