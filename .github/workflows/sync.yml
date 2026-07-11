@@ -12,7 +12,7 @@ env:
 jobs:
   sync:
     name: Sync Files
-    if: ${{ github.repository != env.SOURCE_REPO }}
+    if: ${{ github.repository != 'pacroy/gh-common-workflows' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Target
