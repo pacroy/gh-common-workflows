@@ -40,10 +40,10 @@ jobs:
         shell: bash
         run: |
           folder=".github"
-          rsync --recursive --exclude="workflows/_*.yml" --exclude="workflows/wf_*.yml" --exclude=".copilot-instructions.md" "source/${folder}/" "target/${folder}"
+          rsync --recursive --exclude="workflows/_*.yml" --exclude="workflows/wf_*.yml" --exclude="copilot-instructions.md" "source/${folder}/" "target/${folder}"
 
-          rm -f "target/${folder}/workflows/_*.yml"
-          rm -f "target/${folder}/.copilot-instructions.md"
+          rm -f "target/${folder}/workflows/"{_,wf_}*.yml
+          rm -f "target/${folder}/copilot-instructions.md"
           rm -f "target/${folder}/workflows/markdown-link-check.yml"
           rm -rf "target/${folder}/markdown-link-check"
       - name: Create Job Summary
