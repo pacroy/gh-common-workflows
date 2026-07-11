@@ -25,20 +25,20 @@ This sync process is designed to work well with [GitHub Flow](https://docs.githu
 ## Usage
 
 1. Generate a new Personal Access Token with proper permissions as follow:
-  
+
    - For classic token, choose `repo` and `workflow`.
    - For fine-grained token, choose the following:
 
-    ```properties
-    Repository:Contents=Read and write
-    Repository:Metadata=Read-only
-    Repository:Secrets=Read and write
-    Repository:Workflows=Read and write
-    ```
+   ```properties
+   Repository:Contents=Read and write
+   Repository:Metadata=Read-only
+   Repository:Secrets=Read and write
+   Repository:Workflows=Read and write
+   ```
 
 2. Manually run the workflow [Sync Secrets](https://github.com/pacroy/gh-common-workflows/actions/workflows/_sync_secrets.yml) and input your target repository.
 
-    ![CleanShot 2022-06-30 at 20 09 59](https://user-images.githubusercontent.com/24604485/176685449-dc9e6ff1-df29-4db6-92a8-fa820ff7edc9.png)
+   ![CleanShot 2022-06-30 at 20 09 59](https://user-images.githubusercontent.com/24604485/176685449-dc9e6ff1-df29-4db6-92a8-fa820ff7edc9.png)
 
 3. In your target reposotory, create a new workflow `.github/workflows/sync.yml` copy the content from [sync.yml](.github/workflows/sync.yml).
 
