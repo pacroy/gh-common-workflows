@@ -39,19 +39,20 @@ Naming convention:
 
 ## Sync Behavior
 
-`sync.yml` currently syncs `.github/` from source to target using `rsync` with exclusions:
+`sync.yml` currently syncs an explicit whitelist from source to target using `rsync`:
 
-- `workflows/_*.yml`
-- `workflows/wf_*.yml`
-- `copilot-instructions.md`
+- `.github/workflows/sync.yml`
+- `.github/workflows/mdlink.yml`
+- `.github/workflows/linter.yml`
+- `.github/mdlink/`
 
-This keeps internal utility workflows and repository-specific Copilot instructions out of target repositories.
+This keeps internal utility workflows and repository-specific files out of target repositories by default.
 
 When run, the workflow:
 
 1. Checks out the target repository to `target/`
 2. Checks out source files to `source/`
-3. Syncs `.github/` with exclusions
+3. Syncs the whitelisted files and folders
 4. Publishes a job summary of changed files
 5. Commits and pushes if there are changes
 
@@ -82,6 +83,5 @@ When run, the workflow:
 
 ## Notes
 
-- `copilot-instructions.md` is intentionally excluded from sync so repository-specific AI guidance stays local.
-- If you add more internal workflow files, ensure `sync.yml` exclusion rules are updated accordingly.
+- If you add more files or folders to distribute, update the whitelist in `sync.yml`.
 
