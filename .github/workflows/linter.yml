@@ -62,6 +62,8 @@ jobs:
           VALIDATE_GITHUB_ACTIONS: false
           VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
           VALIDATE_JSON_PRETTIER: false
+          VALIDATE_MARKDOWN_PRETTIER: false
           VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_JSCPD: false
           VALIDATE_KUBERNETES_KUBECONFORM: false
           VALIDATE_YAML_PRETTIER: false

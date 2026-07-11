@@ -1,5 +1,0 @@
-{
-  "ignore": [
-    ".github/workflows/_sync_secrets.yml"
-  ]
-}
