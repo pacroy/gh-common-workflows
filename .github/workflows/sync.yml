@@ -27,6 +27,7 @@ jobs:
         with:
           repository: ${{ env.SOURCE_REPO }}
           path: "source"
+          ref: ${{ github.head_ref }}
       - name: Checkout Target
         if: ${{ github.repository != env.SOURCE_REPO }}
         uses: actions/checkout@v7
