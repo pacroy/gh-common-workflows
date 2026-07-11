@@ -7,39 +7,30 @@ on:
 
 env:
   SOURCE_REPO: pacroy/gh-common-workflows
+  SOURCE_REF: v1
 
 jobs:
   sync:
     name: Sync Files
-    # Run in the source repository to preview sync changes, but require SYNC_PAT in target repositories.
-    if: ${{ github.repository == env.SOURCE_REPO || secrets.SYNC_PAT != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Target
-        if: ${{ github.repository == env.SOURCE_REPO }}
-        uses: actions/checkout@v7
-        with:
-          path: "target"
-          ref: ${{ github.head_ref || github.ref_name }}
-      - name: Checkout Source
-        if: ${{ github.repository == env.SOURCE_REPO }}
-        uses: actions/checkout@v7
-        with:
-          repository: ${{ env.SOURCE_REPO }}
-          path: "source"
-          ref: ${{ github.head_ref || github.ref_name }}
-      - name: Checkout Target
-        if: ${{ github.repository != env.SOURCE_REPO }}
         uses: actions/checkout@v7
         with:
           token: ${{ secrets.SYNC_PAT }}
           path: "target"
           ref: ${{ github.head_ref }}
-      - name: Checkout Source
+      - name: Determine Ref
+        id: get_ref
+        shell: bash
         if: ${{ github.repository != env.SOURCE_REPO }}
+        run: |
+          echo "ref=$SOURCE_REF" >> "$GITHUB_OUTPUT"
+      - name: Checkout Source
         uses: actions/checkout@v7
         with:
           repository: ${{ env.SOURCE_REPO }}
+          ref: ${{ steps.get_ref.outputs.ref }}
           token: ${{ secrets.SYNC_PAT }}
           path: "source"
       - name: Print files and directories
@@ -49,11 +40,12 @@ jobs:
         shell: bash
         run: |
           folder=".github"
-          # Exclude copilot-instructions.md to keep repository-specific AI guidance local to each target repository.
-          rsync --recursive --exclude="workflows/_*.yml" --exclude="workflows/wf_*.yml" --exclude="copilot-instructions.md" "source/${folder}/" "target/${folder}"
-          # Remove internal workflow files if they were previously synced to the target repository.
-          rm -f "target/${folder}/workflows/_*.yml"
-          rm -f "target/${folder}/workflows/wf_*.yml"
+          
+          rsync --recursive \
+            --exclude="workflows/_*.yml" \
+            --exclude="workflows/wf_*.yml" \
+            --exclude="copilot-instructions.md" \
+            "source/${folder}/" "target/${folder}"
 
       - name: Create Job Summary
         shell: bash
@@ -73,7 +65,6 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
       - name: Commit and push
-        if: ${{ github.repository != env.SOURCE_REPO && secrets.SYNC_PAT != '' }}
         shell: bash
         run: |
           cd target
