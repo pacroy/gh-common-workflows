@@ -11,7 +11,7 @@ env:
 jobs:
   sync:
     name: Sync Files
-    if: ${{ github.repository != env.SOURCE_REPO && secrets.SYNC_PAT != '' }}
+    if: ${{ github.repository != env.SOURCE_REPO && secrets.SYNC_PAT }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Target
@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           folder=".github"
-          # Keep repository-specific Copilot guidance local to each target repository.
+          # Exclude copilot-instructions.md to keep repository-specific AI guidance local to each target repository.
           rsync --recursive --exclude="workflows/_*.yml" --exclude="workflows/wf_*.yml" --exclude="copilot-instructions.md" "source/${folder}/" "target/${folder}"
           rm -f "target/${folder}/workflows/_*.yml"
           rm -f "target/${folder}/workflows/wf_*.yml"
