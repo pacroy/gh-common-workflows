@@ -12,7 +12,7 @@ jobs:
   sync:
     name: Sync Files
     # Run in the source repository to preview sync changes, but require SYNC_PAT in target repositories.
-    if: ${{ github.repository == env.SOURCE_REPO || secrets.SYNC_PAT != '' }}
+    if: ${{ github.repository == env.SOURCE_REPO || (secrets.SYNC_PAT != null && secrets.SYNC_PAT != '') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Target
@@ -72,7 +72,7 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
       - name: Commit and push
-        if: ${{ github.repository != env.SOURCE_REPO && secrets.SYNC_PAT != '' }}
+        if: ${{ github.repository != env.SOURCE_REPO && secrets.SYNC_PAT != null && secrets.SYNC_PAT != '' }}
         shell: bash
         run: |
           cd target
