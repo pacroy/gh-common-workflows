@@ -49,7 +49,6 @@ This naming scheme ensures only public workflows are synced to target repositori
 ### Environment Variables
 
 - `SOURCE_REPO`: Full repository path (e.g., `pacroy/gh-common-workflows`)
-- `SOURCE_REF`: Git reference for source (e.g., `v1`) - allows version pinning in target repos
 - `REPO_LIST_REGEX`: When `true`, treat repository patterns as regex expressions
 - Secret patterns use regex for flexible matching (e.g., `^SYNC_PAT$`)
 
@@ -121,8 +120,8 @@ When setting up sync in target repositories, use a Personal Access Token (`SYNC_
    - Sync workflow shows a preview of what will sync to target repos
 5. Merge PR when ready
 6. To release updates to target repos:
-   - Create a git tag (e.g., `v1`) or update `SOURCE_REF` in target repos
-   - Target repos will pull latest changes on their next sync trigger
+   - Merge the workflow updates into the source repository
+   - Target repos will pull the latest changes from the source repository on their next sync trigger
 
 ## Key Dependencies
 
