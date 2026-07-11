@@ -8,6 +8,9 @@ on:
 env:
   SOURCE_REPO: pacroy/gh-common-workflows
 
+permissions:
+  contents: read
+
 jobs:
   sync:
     name: Sync Files
